@@ -112,6 +112,18 @@ public class MainActivity extends SMTHBaseActivity
   private static final int notificationID = 273;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
+    // 设置主题模式
+    boolean bNightMode = Settings.getInstance().isNightMode();
+    boolean bFollowSystemTheme = Settings.getInstance().isFollowSystemTheme();
+    
+    if (bFollowSystemTheme) {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    } else if (bNightMode) {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    } else {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
+    
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -718,7 +730,11 @@ public class MainActivity extends SMTHBaseActivity
 
   public void setApplicationNightMode() {
     boolean bNightMode = Settings.getInstance().isNightMode();
-    if (bNightMode) {
+    boolean bFollowSystemTheme = Settings.getInstance().isFollowSystemTheme();
+    
+    if (bFollowSystemTheme) {
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    } else if (bNightMode) {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     } else {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

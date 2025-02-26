@@ -21,6 +21,14 @@
 
     <CheckBoxPreference
         app:iconSpaceReserved="false"
+        android:defaultValue="off"
+        android:key="setting_follow_system_theme"
+        android:summaryOff="使用应用内设置的主题"
+        android:summaryOn="跟随系统深色/浅色主题设置"
+        android:title="跟随系统主题"/>
+
+    <CheckBoxPreference
+        app:iconSpaceReserved="false"
         android:defaultValue="on"
         android:key="setting_post_navigation_control"
         android:summaryOff="快速导航栏已关闭"

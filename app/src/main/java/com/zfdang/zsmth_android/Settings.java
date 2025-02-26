@@ -278,6 +278,22 @@ public class Settings {
     }
   }
 
+  // follow system theme
+  private static final String FOLLOW_SYSTEM_THEME = "FOLLOW_SYSTEM_THEME";
+  private boolean bFollowSystemTheme;
+
+  public boolean isFollowSystemTheme() {
+    return bFollowSystemTheme;
+  }
+
+  public void setFollowSystemTheme(boolean bFollowSystemTheme) {
+    if (this.bFollowSystemTheme != bFollowSystemTheme) {
+      this.bFollowSystemTheme = bFollowSystemTheme;
+      mEditor.putBoolean(FOLLOW_SYSTEM_THEME, this.bFollowSystemTheme);
+      mEditor.commit();
+    }
+  }
+
   private static final String LAST_LAUNCH_VERSION = "LAST_LAUNCH_VERSION";
   private int iLastVersion;
 
@@ -506,6 +522,7 @@ public class Settings {
     bBoardMasterOnly = mPreference.getBoolean(BOARD_MASTER_ONLY, false);
 
     bNightMode = mPreference.getBoolean(NIGHT_MODE, true);
+    bFollowSystemTheme = mPreference.getBoolean(FOLLOW_SYSTEM_THEME, false);
 
     iLastVersion = mPreference.getInt(LAST_LAUNCH_VERSION, 0);
 

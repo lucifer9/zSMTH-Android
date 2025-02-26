@@ -55,6 +55,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
   CheckBoxPreference notification_control_reply;
   CheckBoxPreference notification_control_at;
 
+  CheckBoxPreference setting_follow_system_theme;
+
   Preference app_version;
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -219,6 +221,25 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
       }
     });
 
+    setting_follow_system_theme = (CheckBoxPreference) findPreference("setting_follow_system_theme");
+    setting_follow_system_theme.setChecked(Settings.getInstance().isFollowSystemTheme());
+    setting_follow_system_theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+      @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
+        boolean bFollowSystemTheme = Settings.getInstance().isFollowSystemTheme();
+        if (newValue instanceof Boolean) {
+          Boolean boolVal = (Boolean) newValue;
+          bFollowSystemTheme = boolVal;
+        }
+        Settings.getInstance().setFollowSystemTheme(bFollowSystemTheme);
+        
+        // 应用新的主题设置
+        if (getActivity() instanceof MainActivity) {
+          ((MainActivity) getActivity()).setApplicationNightMode();
+        }
+        return true;
+      }
+    });
+
     notification_control_mail = (CheckBoxPreference) findPreference("setting_notification_control_mail");
     notification_control_mail.setChecked(Settings.getInstance().isNotificationMail());
     notification_control_mail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -318,8 +339,6 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
         return true;
       }
     });
-
-
 
     app_version = findPreference("setting_app_version");
     app_version.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
